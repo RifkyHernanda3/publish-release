@@ -90,7 +90,8 @@ function getContext () {
         name: payload.release.name,
         html_url: payload.release.html_url,
         repo_name: payload.repository.full_name,
-        is_prerelease: payload.release.prerelease
+        is_prerelease: payload.release.prerelease,
+        tag_name: payload.release.tag_name
     }
 }
 
@@ -136,18 +137,17 @@ async function run () {
 
     if (!webhookUrl) return core.setFailed('webhook_url not set. Please set it.');
 
-    const {body, html_url, name, repo_name, is_prerelease} = getContext();
+    const {body, html_url, name, repo_name, is_prerelease, tag_name} = getContext();
 
     const description = formatDescription(body);
-
+    const headerMessage = `**${repo_name}**\n\nis successfully deployed to staging with version ${tag_name}`;
+    const fullDescription = `${headerMessage}\n\n${description}`;
     let embedMsg = {
         title: limit(name, 256),
         url: html_url,
         color: color,
         description: description,
-        footer: {
-            text: `Repository: ${repo_name}\nPre-release: ${is_prerelease ? 'Yes' : 'No'}`
-        }
+        footer: {}
     }
 
     if (footerTitle != '') embedMsg.footer.text = limit(footerTitle, 2048);
