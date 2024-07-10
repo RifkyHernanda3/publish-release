@@ -143,7 +143,7 @@ async function run () {
     const headerMessage = `**${repo_name}**\n\nis successfully deployed to staging with version ${tag_name}`;
     const fullDescription = `${headerMessage}\n\n${description}`;
     let embedMsg = {
-        title: limit(name, 256),
+        title: limit(headerMessage, 256),
         url: html_url,
         color: color,
         description: description,
