@@ -1,8 +1,7 @@
 name: test-action
 on:
   release:
-    types: [published]
-
+    types: [released]
 jobs:
   github-releases-to-discord:
     runs-on: ubuntu-latest
@@ -10,8 +9,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Github Releases To Discord
-        uses: SethCohen/github-releases-to-discord@v1.13.1
+        uses: ./ # Uses an action in the root directory
         with:
           webhook_url: ${{ secrets.WEBHOOK_URL }}
-          color: "2105893"
-          username: "Release Changelog"

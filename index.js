@@ -44,7 +44,7 @@ const formatDescription = (description) => {
 
 /**
  * Get a prefix to use for Github link display
- * @param {'issues' | 'pull' | 'commit' | 'compare'} type
+ * @param {'issues' | 'pull' | 'commit' | 'compare'} type 
  */
 function getTypePrefix (type) {
     switch (type) {
@@ -93,11 +93,11 @@ function getContext () {
 }
 
 /**
- *
+ * 
  * @param {string} str
  * @param {number} maxLength
  * @param {string} [url]
- * @param {boolean} [clipAtLine=false]
+ * @param {boolean} [clipAtLine=false] 
  */
 function limit(str, maxLength, url, clipAtLine) {
     clipAtLine ??= false
