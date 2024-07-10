@@ -88,7 +88,9 @@ function getContext () {
     return {
         body: payload.release.body,
         name: payload.release.name,
-        html_url: payload.release.html_url
+        html_url: payload.release.html_url,
+        repo_name: payload.repository.full_name,
+        is_prerelease: payload.release.prerelease
     }
 }
 
@@ -134,7 +136,7 @@ async function run () {
 
     if (!webhookUrl) return core.setFailed('webhook_url not set. Please set it.');
 
-    const {body, html_url, name} = getContext();
+    const {body, html_url, name, repo_name, is_prerelease} = getContext();
 
     const description = formatDescription(body);
 
@@ -143,7 +145,9 @@ async function run () {
         url: html_url,
         color: color,
         description: description,
-        footer: {}
+        footer: {
+            text: `Repository: ${repo_name}\nPre-release: ${is_prerelease ? 'Yes' : 'No'}`
+        }
     }
 
     if (footerTitle != '') embedMsg.footer.text = limit(footerTitle, 2048);
