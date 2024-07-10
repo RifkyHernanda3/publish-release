@@ -84,7 +84,7 @@ function getMaxDescription () {
  */
 function getContext () {
     const payload = github.context.payload;
-
+    console.log(JSON.stringify(github.context.payload, null, 2));
     return {
         body: payload.release.body,
         name: payload.release.name,
