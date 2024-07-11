@@ -140,7 +140,12 @@ async function run () {
     const {body, html_url, name, repo_name, is_prerelease, tag_name} = getContext();
 
     const description = formatDescription(body);
-    const headerMessage = `**${repo_name}**\n\nis successfully deployed to staging with version ${tag_name}`;
+    let headerMessage;
+    if (is_prerelease) {
+        headerMessage = `**${repo_name}**\n\nSuccessfully deployed to staging with version ${tag_name}`;
+    } else {
+        headerMessage = `**${repo_name}**\n\nSuccessfully deployed to production with version ${tag_name}`;
+    }
     const fullDescription = `${headerMessage}\n\n${description}`;
     let embedMsg = {
         title: limit(headerMessage, 256),
